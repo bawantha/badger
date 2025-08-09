@@ -2,100 +2,55 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { BarChart, Crosshair, Home, Shield, Swords, User, LogOut } from 'lucide-react';
+import { BarChart, Crosshair, Home, Shield, Swords, User, LogOut, RadioTower } from 'lucide-react';
 import type { ReactNode } from 'react';
 
-import {
-  SidebarProvider,
-  Sidebar,
-  SidebarHeader,
-  SidebarContent,
-  SidebarMenu,
-  SidebarMenuItem,
-  SidebarMenuButton,
-  SidebarFooter,
-  SidebarInset,
-  SidebarTrigger,
-} from '@/components/ui/sidebar';
-import { Button } from '@/components/ui/button';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Logo } from '@/components/icons/logo';
-import { Separator } from '@/components/ui/separator';
+import { Button } from '@/components/ui/button';
 
 const navItems = [
   { href: '/missions', label: 'Missions', icon: Crosshair },
-  { href: '/battle', label: 'Battle', icon: Swords },
+  { href: '/battle', label: 'Battles', icon: Swords },
   { href: '/leaderboard', label: 'Leaderboard', icon: BarChart },
-  { href: '/dashboard', label: 'Dashboard', icon: Shield },
+  { href: '#', label: 'Live', icon: RadioTower },
 ];
 
 export default function AppLayout({ children }: { children: ReactNode }) {
   const pathname = usePathname();
 
   return (
-    <SidebarProvider>
-      <Sidebar>
-        <SidebarHeader>
-          <div className="flex items-center gap-2">
-            <Logo className="size-8 text-primary" />
-            <span className="text-lg font-semibold font-headline">BADGER</span>
-          </div>
-        </SidebarHeader>
-        <SidebarContent>
-          <SidebarMenu>
-            {navItems.map((item) => (
-              <SidebarMenuItem key={item.href}>
-                <SidebarMenuButton
-                  asChild
-                  isActive={pathname.startsWith(item.href)}
-                  tooltip={item.label}
-                >
-                  <Link href={item.href}>
-                    <item.icon />
-                    <span>{item.label}</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            ))}
-          </SidebarMenu>
-        </SidebarContent>
-        <SidebarFooter>
-          <Separator className="my-2" />
-          <SidebarMenu>
-             <SidebarMenuItem>
-                <SidebarMenuButton asChild tooltip="Profile">
-                    <Link href="/profile/ghost">
-                         <Avatar className="size-7">
-                            <AvatarImage src="/avatars/01.png" alt="User Avatar" />
-                            <AvatarFallback>G</AvatarFallback>
-                        </Avatar>
-                        <span>Profile</span>
-                    </Link>
-                </SidebarMenuButton>
-            </SidebarMenuItem>
-            <SidebarMenuItem>
-                <SidebarMenuButton asChild tooltip="Logout">
-                    <Link href="/">
-                        <LogOut />
-                        <span>Logout</span>
-                    </Link>
-                </SidebarMenuButton>
-            </SidebarMenuItem>
-          </SidebarMenu>
-        </SidebarFooter>
-      </Sidebar>
-      <SidebarInset>
-        <header className="flex h-12 items-center justify-between border-b px-4 lg:hidden">
-            <Link href="/missions" className="flex items-center gap-2 font-bold">
-                <Logo className="size-6 text-primary" />
-                <span>BADGER</span>
-            </Link>
-            <SidebarTrigger />
+    <div className="flex flex-col min-h-screen bg-background text-foreground">
+        <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+            <div className="container flex h-16 items-center px-4 md:px-6">
+                <Link href="/missions" className="mr-6 flex items-center space-x-2">
+                    <Logo className="h-8 w-8 text-primary" />
+                    <span className="font-bold text-lg font-headline">BADGER <span className="text-xs text-primary">v2.1</span></span>
+                </Link>
+                
+                <nav className="hidden flex-1 items-center justify-center lg:flex">
+                    <div className="flex items-center gap-6 text-sm font-medium">
+                        {navItems.map((item) => (
+                        <Link
+                            key={item.href}
+                            href={item.href}
+                            className={`flex items-center gap-2 transition-colors hover:text-primary ${pathname.startsWith(item.href) ? 'text-primary' : 'text-muted-foreground'}`}
+                        >
+                            <item.icon className="h-4 w-4" />
+                            {item.label}
+                        </Link>
+                        ))}
+                    </div>
+                </nav>
+
+                <div className="flex items-center justify-end space-x-4 ml-auto">
+                   <Button variant="outline" size="sm">Sign In</Button>
+                   <Button size="sm">Join Force</Button>
+                </div>
+            </div>
         </header>
-        <main className="flex-1 p-4 md:p-6 lg:p-8 overflow-y-auto">
+        <main className="flex-1 p-4 md:p-6">
             {children}
         </main>
-      </SidebarInset>
-    </SidebarProvider>
+    </div>
   );
 }

@@ -19,18 +19,18 @@ export function MissionMap({ missions }: MissionMapProps) {
   const [selectedMission, setSelectedMission] = useState<Mission | null>(null);
 
   return (
-    <div className="h-[calc(100vh-theme(spacing.32))] w-full relative">
+    <div className="h-full w-full absolute inset-0">
       <Map
         mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
         initialViewState={{
-          longitude: -74.0060,
-          latitude: 40.7128,
-          zoom: 3,
+          longitude: -98.5795,
+          latitude: 39.8283,
+          zoom: 3.5,
         }}
         mapStyle="mapbox://styles/mapbox/dark-v11"
         style={{ width: '100%', height: '100%' }}
       >
-        <NavigationControl position="top-right" />
+        <NavigationControl position="bottom-right" />
         {missions.map((mission) => (
           <Marker
             key={mission.id}
@@ -42,7 +42,9 @@ export function MissionMap({ missions }: MissionMapProps) {
             }}
           >
             <button className="transform transition-transform hover:scale-125">
-                <Target className="h-8 w-8 text-primary drop-shadow-[0_0_5px_hsl(var(--primary))]" />
+              <div className="w-6 h-6 bg-green-500/50 rounded-full flex items-center justify-center border-2 border-green-400">
+                <Target className="h-4 w-4 text-green-200 drop-shadow-[0_0_3px_#34d399]" />
+              </div>
             </button>
           </Marker>
         ))}
@@ -54,7 +56,7 @@ export function MissionMap({ missions }: MissionMapProps) {
             onClose={() => setSelectedMission(null)}
             closeButton={false}
             anchor="bottom"
-            offset={40}
+            offset={30}
             className="w-80"
           >
              <Card className="border-0 shadow-none bg-transparent">
