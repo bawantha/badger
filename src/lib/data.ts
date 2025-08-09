@@ -13,6 +13,8 @@ export interface Mission {
   sponsor: string;
   proof: 'photo' | 'video';
   image: string;
+  latitude: number;
+  longitude: number;
 }
 
 export const missions: Mission[] = [
@@ -28,6 +30,8 @@ export const missions: Mission[] = [
     sponsor: 'Tactical Fitness Co.',
     proof: 'photo',
     image: 'https://placehold.co/600x400.png',
+    latitude: 34.0522,
+    longitude: -118.2437,
   },
   {
     id: 'urban-recon',
@@ -41,6 +45,8 @@ export const missions: Mission[] = [
     sponsor: 'City Explorers Guild',
     proof: 'photo',
     image: 'https://placehold.co/600x400.png',
+    latitude: 40.7128,
+    longitude: -74.0060,
   },
   {
     id: 'community-shield',
@@ -54,6 +60,8 @@ export const missions: Mission[] = [
     sponsor: 'Unity Foundation',
     proof: 'photo',
     image: 'https://placehold.co/600x400.png',
+    latitude: 51.5074,
+    longitude: -0.1278,
   },
   {
     id: 'the-forge',
@@ -67,6 +75,8 @@ export const missions: Mission[] = [
     sponsor: 'Goliath Labs',
     proof: 'video',
     image: 'https://placehold.co/600x400.png',
+    latitude: 35.6895,
+    longitude: 139.6917,
   },
 ];
 

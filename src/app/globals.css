@@ -82,4 +82,10 @@
   body {
     @apply bg-background text-foreground;
   }
+  .mapboxgl-popup-content {
+    @apply bg-card text-card-foreground p-0 rounded-lg shadow-lg border border-border;
+  }
+  .mapboxgl-popup-tip {
+    @apply border-t-card;
+  }
 }
