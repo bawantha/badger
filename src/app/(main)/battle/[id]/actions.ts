@@ -72,6 +72,12 @@ async function getUserIdFromToken() {
         return null;
     }
     const idToken = authorization.substring(7);
+
+    if (!auth) {
+        console.error('Firebase Admin SDK is not initialized. Cannot verify ID token.');
+        return null;
+    }
+
     try {
         const decodedToken = await auth.verifyIdToken(idToken);
         return decodedToken.uid;
