@@ -10,19 +10,19 @@
     --card-foreground: 210 40% 98%;
     --popover: 224 24% 10%;
     --popover-foreground: 210 40% 98%;
-    --primary: 100 90% 50%;
+    --primary: 42 78% 56%;
     --primary-foreground: 224 24% 10%;
     --secondary: 220 13% 25%;
     --secondary-foreground: 210 40% 98%;
     --muted: 220 13% 35%;
     --muted-foreground: 215 20% 65%;
-    --accent: 100 90% 50%;
+    --accent: 42 78% 56%;
     --accent-foreground: 224 24% 10%;
     --destructive: 0 63% 31%;
     --destructive-foreground: 210 40% 98%;
     --border: 220 13% 35%;
     --input: 220 13% 35%;
-    --ring: 100 90% 50%;
+    --ring: 42 78% 56%;
     --radius: 0.5rem;
     --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%;
@@ -32,25 +32,25 @@
   }
 
   .dark {
-    --background: 224 24% 10%;
+    --background: 222 84% 5%;
     --foreground: 210 40% 98%;
-    --card: 224 24% 13%;
+    --card: 222 84% 8%;
     --card-foreground: 210 40% 98%;
-    --popover: 224 24% 10%;
+    --popover: 222 84% 5%;
     --popover-foreground: 210 40% 98%;
-    --primary: 100 80% 55%;
-    --primary-foreground: 224 24% 10%;
-    --secondary: 220 13% 25%;
+    --primary: 42 78% 56%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 217 33% 17%;
     --secondary-foreground: 210 40% 98%;
-    --muted: 220 13% 35%;
+    --muted: 217 33% 17%;
     --muted-foreground: 215 20% 65%;
-    --accent: 100 80% 55%;
-    --accent-foreground: 224 24% 10%;
+    --accent: 217 33% 17%;
+    --accent-foreground: 210 40% 98%;
     --destructive: 0 63% 31%;
     --destructive-foreground: 210 40% 98%;
-    --border: 220 13% 35%;
-    --input: 220 13% 35%;
-    --ring: 100 80% 55%;
+    --border: 217 33% 17%;
+    --input: 217 33% 17%;
+    --ring: 42 78% 56%;
   }
 }
 
@@ -72,5 +72,8 @@
   }
   .mapboxgl-ctrl-group button .mapboxgl-ctrl-icon {
       filter: invert(1);
+  }
+  button, a, [role="button"], input[type="submit"], input[type="button"], .mapboxgl-marker, .cursor-pointer {
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='m9.5 14.5 6.5-6.5'/><path d='M12.5 8.5 18 3'/><path d='M3 21h3l7-7'/><path d='m11 11 3 3'/></svg>") 0 0, auto;
   }
 }
