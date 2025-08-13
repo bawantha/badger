@@ -1,3 +1,4 @@
+
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -89,8 +90,8 @@ export default function Home() {
         </section>
 
         <section className="py-12 md:py-24">
-          <div className="container grid items-center gap-6 lg:grid-cols-2 lg:gap-12">
-            <div className="space-y-4">
+          <div className="container grid items-center justify-items-center gap-6 lg:grid-cols-2 lg:gap-12">
+            <div className="space-y-4 text-center lg:text-left">
               <h2 className="text-3xl font-bold font-headline">Prove Your Mettle</h2>
               <p className="text-muted-foreground">
                 Document your achievements with photo or video proof. Our system, backed by AI moderation, ensures fair play and a safe community environment.
