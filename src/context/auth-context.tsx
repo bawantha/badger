@@ -2,32 +2,61 @@
 'use client';
 
 import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-import { onAuthStateChanged, User } from 'firebase/auth';
+import { onAuthStateChanged, User as FirebaseUser } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
 import { useRouter, usePathname } from 'next/navigation';
 import { Loader2 } from 'lucide-react';
+import { StreamVideoClient, User } from '@stream-io/video-react-sdk';
+import { tokenProvider } from '@/app/(main)/battle/[id]/actions';
 
 interface AuthContextType {
-  user: User | null;
+  user: FirebaseUser | null;
   loading: boolean;
 }
 
 const AuthContext = createContext<AuthContextType>({ user: null, loading: true });
 
+const STREAM_API_KEY = process.env.NEXT_PUBLIC_STREAM_API_KEY;
+
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<FirebaseUser | null>(null);
   const [loading, setLoading] = useState(true);
+  const [videoClient, setVideoClient] = useState<StreamVideoClient | null>(null);
   const router = useRouter();
   const pathname = usePathname();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setUser(user);
+    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+      if (firebaseUser) {
+        setUser(firebaseUser);
+        if (STREAM_API_KEY) {
+          const streamUser: User = {
+            id: firebaseUser.uid,
+            name: firebaseUser.displayName || firebaseUser.email || 'Anonymous',
+            image: firebaseUser.photoURL || undefined,
+          };
+          const client = new StreamVideoClient({ 
+            apiKey: STREAM_API_KEY, 
+            user: streamUser, 
+            tokenProvider 
+          });
+          setVideoClient(client);
+          // The connect() call will be handled by the StreamVideo component
+        }
+      } else {
+        setUser(null);
+        videoClient?.disconnectUser();
+        setVideoClient(null);
+      }
       setLoading(false);
     });
 
-    return () => unsubscribe();
-  }, []);
+    return () => {
+      unsubscribe();
+      videoClient?.disconnectUser();
+    }
+  }, [videoClient]);
+  
 
   useEffect(() => {
     if (loading) return;
@@ -74,4 +103,3 @@ export const AuthWrapper = ({ children }: { children: ReactNode }) => {
 
   return <AuthProvider>{children}</AuthProvider>;
 }
-

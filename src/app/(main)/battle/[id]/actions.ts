@@ -1,8 +1,11 @@
+
 'use server';
 
 import { moderateMissionSubmission } from '@/ai/flows/mission-submission-moderation';
 import { z } from 'zod';
 import { SignJWT } from 'jose';
+import { auth } from '@/lib/firebase-admin'; // Using admin SDK on server
+import { headers } from 'next/headers';
 
 const FormSchema = z.object({
   notes: z.string().min(1, { message: 'Notes cannot be empty.' }),
@@ -63,6 +66,22 @@ export async function submitMission(prevState: State, formData: FormData): Promi
   }
 }
 
+async function getUserIdFromToken() {
+    const authorization = headers().get('Authorization');
+    if (!authorization?.startsWith('Bearer ')) {
+        return null;
+    }
+    const idToken = authorization.substring(7);
+    try {
+        const decodedToken = await auth.verifyIdToken(idToken);
+        return decodedToken.uid;
+    } catch (error) {
+        console.error('Error verifying Firebase ID token:', error);
+        return null;
+    }
+}
+
+
 export async function tokenProvider() {
   const STREAM_API_KEY = process.env.NEXT_PUBLIC_STREAM_API_KEY;
   const STREAM_SECRET_KEY = process.env.STREAM_SECRET_KEY;
@@ -71,17 +90,16 @@ export async function tokenProvider() {
     throw new Error('Stream API key or secret is missing');
   }
 
-  // In a real app, you'd get the user from your auth system
-  const user = { id: 'operator-ghost' };
+  const userId = await getUserIdFromToken();
   
-  if (!user) {
+  if (!userId) {
     throw new Error('User is not authenticated');
   }
 
   const exp = Math.round(new Date().getTime() / 1000) + 60 * 60;
   const issued = Math.floor(Date.now() / 1000) - 60;
 
-  const token = await new SignJWT({ 'get_user_id': user.id })
+  const token = await new SignJWT({ 'get_user_id': userId })
     .setProtectedHeader({ alg: 'HS256', typ: 'JWT' })
     .setIssuedAt(issued)
     .setExpirationTime(exp)
