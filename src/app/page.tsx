@@ -29,34 +29,38 @@ export default function Home() {
       </header>
       <main className="flex-1">
         <section className="py-24 md:py-32 lg:py-40">
-          <div className="container text-center">
-            <div className="inline-block rounded-lg bg-secondary px-3 py-1 text-sm text-secondary-foreground mb-4">
-              Mission-Driven Social Competition
-            </div>
-            <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl font-headline">
-              Gamify Your Grind
-            </h1>
-            <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl mt-4">
-              Complete missions. Challenge rivals in 1v1 battles. Climb the leaderboards. Welcome to the next level of real-world action.
-            </p>
-            <div className="mt-6 flex justify-center gap-4">
-              <Button size="lg" asChild>
-                <Link href="/missions">
-                  View Missions <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
-              <Button size="lg" variant="secondary" asChild>
-                <Link href="/battle">
-                  Join a Battle <Swords className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
+          <div className="container px-4 md:px-6">
+            <div className="flex flex-col items-center space-y-4 text-center">
+              <div className="inline-block rounded-lg bg-secondary px-3 py-1 text-sm text-secondary-foreground mb-4">
+                Mission-Driven Social Competition
+              </div>
+              <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl font-headline">
+                Gamify Your Grind
+              </h1>
+              <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl">
+                Complete missions. Challenge rivals in 1v1 battles. Climb the leaderboards. Welcome to the next level of real-world action.
+              </p>
+              <div className="mt-6 flex justify-center gap-4">
+                <Button size="lg" asChild>
+                  <Link href="/missions">
+                    View Missions <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
+                <Button size="lg" variant="secondary" asChild>
+                  <Link href="/battle">
+                    Join a Battle <Swords className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
+              </div>
             </div>
           </div>
         </section>
 
-        <section id="features" className="py-12 md:py-24 bg-secondary">
-          <div className="container">
-            <h2 className="text-3xl font-bold text-center font-headline">Core Features</h2>
+        <section id="features" className="w-full py-12 md:py-24 bg-secondary">
+          <div className="container px-4 md:px-6">
+            <div className="flex flex-col items-center justify-center space-y-4 text-center">
+               <h2 className="text-3xl font-bold text-center font-headline">Core Features</h2>
+            </div>
             <div className="mx-auto mt-12 grid gap-8 md:grid-cols-3">
               <Card className="bg-background/50">
                 <CardHeader>
@@ -89,8 +93,8 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="py-12 md:py-24">
-          <div className="container grid items-center justify-items-center gap-6 lg:grid-cols-2 lg:gap-12">
+        <section className="w-full py-12 md:py-24">
+           <div className="container grid items-center justify-center gap-6 px-4 md:px-6 lg:grid-cols-2 lg:gap-12">
             <div className="space-y-4 text-center lg:text-left">
               <h2 className="text-3xl font-bold font-headline">Prove Your Mettle</h2>
               <p className="text-muted-foreground">
